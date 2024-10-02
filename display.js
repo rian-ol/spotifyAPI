@@ -23,17 +23,17 @@ document.getElementById('artistsLong').addEventListener("click", async function(
 
 
 document.getElementById('songShort').addEventListener("click", async function(){
-    const songs = await fetchArtists(token, "short_term");
+    const songs = await fetchSongs(token, "short_term");
     populateSongs(songs)
 }); 
 
 document.getElementById('songMedium').addEventListener("click", async function(){
-    const songs = await fetchArtists(token, "medium_term");
+    const songs = await fetchSongs(token, "medium_term");
     populateSongs(songs)
 }); 
 
 document.getElementById('songLong').addEventListener("click", async function(){
-    const songs = await fetchArtists(token, "long_term");
+    const songs = await fetchSongs(token, "long_term");
     populateSongs(songs)
 }); 
 
@@ -57,7 +57,7 @@ export async function fetchSongs(token, term) {
 
 
 function populateArtists(artists) {
-    var tableBody = document.getElementById("table");
+    var tableBody = document.getElementById("tableArtists");
     tableBody.innerHTML = "";
     
     for(const element of artists.items){
@@ -77,5 +77,18 @@ function populateArtists(artists) {
 
 
 function populateSongs(songs){
+    var tableBody = document.getElementById("tableSongs");
+    tableBody.innerHTML = "";
+    
+    for(const element of songs.items){
+        var row = document.createElement("tr");
+        row.innerHTML = `
+            <td> ${element.name} </td>
+            <td> <img src="${element.album.images[0].url}" width = "150" height ="150" </td>
 
+        `;
+        tableBody.appendChild(row);
+    }
+
+    console.log(songs);
 }
